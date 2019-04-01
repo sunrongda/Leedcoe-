@@ -1,0 +1,43 @@
+
+Given an array of strings, group anagrams together.
+
+Example:
+
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+Output:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+首先建立一个Hash表 一个排序后的key对应一个列表
+然后进行排序后的遍历，如果存在则加入没有存在则重新建立并加入
+
+
+```
+import java.util.*;
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs.length == 0) return new ArrayList();
+        Map<String ,List> map=new HashMap<String,List>();
+        for(String ss:strs)
+        {
+            char []temp =ss.toCharArray();
+            Arrays.sort(temp);
+            String key=String.valueOf(temp);
+            if(!map.containsKey(key))
+            {
+                map.put(key,new ArrayList());
+            }
+
+            map.get(key).add(ss);
+            
+        }
+        return new ArrayList(map.values());
+    }
+}
+```
+
+
+
