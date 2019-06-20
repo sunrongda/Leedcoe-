@@ -23,7 +23,7 @@ class Solution(object):
         # Filling the values for the first row        
         for j in range(1, n):
             obstacleGrid[0][j] = int(obstacleGrid[0][j] == 0 and obstacleGrid[0][j-1] == 1)
-
+#python == true false 
         # Starting from cell(1,1) fill up the values
         # No. of ways of reaching cell[i][j] = cell[i - 1][j] + cell[i][j - 1]
         # i.e. From above and left.
