@@ -1,0 +1,19 @@
+public class Solution {
+    public int Add(int num1,int num2) {
+        if(num2 == 0)return num1;
+        while (num2 !=0)
+        {
+            int temp = num1^num2;
+            num2 = (num1&num2)<<1;
+            num1 = temp;
+        }
+        return num1;
+
+    }
+}
+
+
+1 排断num2 是否为0
+2 计算num1 和num2 不进位的相加运算结果 用num1 异或 num2 得到结果num1： 5-101 num ：7-111  010=2
+3 计算num1 加num2 的进位结果 num1 与num2 左移动一位 101《《1 -> 1010
+重复上述动作，直到没有进位为止
