@@ -1,0 +1,61 @@
+一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。
+public class Solution {
+    public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+        int temp =0;
+        for(int i =0 ;i<array.length ; i++)
+        {
+            temp= temp^array[i];
+        }
+        int index = Findindex(temp);
+        for(int i =0 ;i<array.length ; i++)
+        {
+            if(Findnumgroup(array[i] , index))
+            {
+                num1[0] = num1[0]^array[i];
+            }
+            else
+            {
+                num2[0] = num2[0]^array[i];
+            }
+        }
+
+    }
+    private int Findindex(int temp)
+    {
+        int index = 0;
+        while ((temp & 1) == 0  && (index <=32) )
+        {
+            temp = temp>>1;
+            index++;
+        }
+        return index;
+    }
+    private boolean Findnumgroup(int num , int index)
+    {
+        if(((num>>index)&1) == 0) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static void main(String []args)
+    {
+        Solution test = new Solution();
+        int []num = new int[]{2,4,3,6,3,2,5,5};
+        int []num1 =new int[]{0};
+        int []num2 =new int[]{0};
+        test.FindNumsAppearOnce(num , num1 , num2);
+        System.out.println(num1[0]);
+        System.out.println(num2[0]);
+    }
+}
+
+
+
+思路解析：找到一个整数数组一个数字以外，其他的数字都出现了两次，请写出程序找到这只出现一个的数字，则对所有数做异或，得到的数为那个数
+这道题可以分为把所有数分成两组，划分为上边的子问题，然后求解
+1 对所有数进行异或操作，及可得到两个数的异或结果
+2对异或结果找到第一位的不同数位
+3对数组便利划分为两组，并对两组同时进行异或得到结果
