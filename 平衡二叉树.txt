@@ -1,0 +1,23 @@
+
+public class Solution {
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if(root == null) {
+            return true;
+        }
+        return Math.abs(TreeDepth(root.right)-TreeDepth(root.left)) <=1  &&
+        IsBalanced_Solution(root.left) && IsBalanced_Solution(root.right);
+    }
+    private int TreeDepth(TreeNode root)
+    {
+        if(root == null)
+            return 0;
+        return Math.max(TreeDepth(root.left),TreeDepth(root.right))+1;
+    }
+
+
+}
+
+1 上述做法为题解1 
+1 判断跟是否为空
+2 便利所有左右树的最大深度，并判断是否符合条件，判断左右树和左右树的孩子进行递归
+3 设计计算树的最大高度的函数
