@@ -1,0 +1,78 @@
+输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+输入描述:
+输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+public class Solution {
+    public ArrayList<String> Permutation(String str) {
+
+        ArrayList<String> result = new ArrayList<>();
+        if(str.equals("")) return  result;
+        char [] temp = str.toCharArray();
+        Arrays.sort(temp);
+
+        result.add(String.valueOf(temp));
+        int len = str.length();
+        while (true)
+        {
+
+            int lindex = len -1 ;
+            int rindex;
+
+            while ((lindex >= 1) &&temp[lindex] <= temp[lindex -1] ) {
+
+                lindex--;
+            }
+            if(lindex == 0)break;
+            rindex = lindex ;
+            while (((rindex) < len ) && temp[rindex] > temp[lindex -1]) rindex++;
+            swap(temp , lindex - 1,rindex -1);
+            reserve(temp , lindex );
+            result.add(String.valueOf(temp));
+        }
+
+        return result;
+    }
+    private void reserve(char[] str , int k)
+    {
+        int len = str.length;
+        if(str == null || k >=len -1) return;
+        for(int i =0 ;i <(len - k)/2 ;i++)
+        {
+            swap(str ,k + i,len - i - 1);
+        }
+    }
+    private void swap(char []str , int i ,int j)
+    {
+        if(str == null ||  j >str.length -1) return;
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+
+
+    public static void main(String [] args)
+    {
+        String test =new String("");
+
+        Solution tt = new Solution();
+
+        System.out.println(tt.Permutation(test));
+    }
+}
+
+例：abc 排序
+全字典排序：
+转化为char数组 后排a-〉b-〉c
+1 找到第一个str[i] > str[i - 1] 记录i - 1位置
+2 从i - 1 的位置往后找 找到 最后一个大于 i - 1的
+3交换i -1 和最后一个大于 i - 1的数
+4把所有的 i-1往后的数进行反转
+
+
+
+
