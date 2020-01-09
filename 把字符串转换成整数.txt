@@ -1,0 +1,15 @@
+public class Solution {
+    public int StrToInt(String str) {
+        int  res = 0;
+        if(str.length() == 0 || str == null) return 0;
+        int flag = 1;
+
+        if(str.charAt(0) == '-') flag = -1;
+        for(int i = (str.charAt(0) == '-' ||str.charAt(0) == '+')? 1 :0  ;i < str.length() ; i++)
+        {
+            if(str.charAt(i) >'9' || str.charAt(i) < '0') return  0;
+            res = res*10 + str.charAt(i)-'0';
+        }
+        return res*flag;
+    }
+}
