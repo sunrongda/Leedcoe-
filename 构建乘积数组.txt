@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+public class Solution {
+    public int[] multiply(int[] A) {
+        int [] B =A.clone();
+        for(int i = A.length - 2; i >= 0 ; i--)
+        {
+            B[i] = A[i] * B[i+1];
+            
+        }
+        for(int i =1 ; i< A.length ;i++)
+        {
+            A[i] *= A[i -1];
+        }
+        for(int i =1 ; i< B.length -1 ;i++)
+        {
+            B[i] = A[i -1] * B[i + 1];
+        }
+        B[B.length - 1] = A[B.length - 2];
+        return B;
+    }
+}
