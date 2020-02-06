@@ -21,3 +21,51 @@
 7先进入大顶堆，然后将大顶堆中最大值放入小顶堆中，此时min=[4,5,6,7],max=[3,2,1],avg=[4]=[4.00]
 0先进入小顶堆，然后将小顶堆中最大值放入小顶堆中，此时min=[4,5,6,7],max=[3,2,1,0],avg=[(4+3)/2]=[3.50]
 8先进入大顶堆，然后将大顶堆中最小值放入大顶堆中，此时min=[4,5,6,7,8],max=[3,2,1,0],avg=[4.00]
+
+
+
+
+
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class Solution {
+    PriorityQueue<Integer> minheap =new PriorityQueue<>();
+    PriorityQueue<Integer> maxheap =new PriorityQueue<>(15, new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2 - o1;
+        }
+    });
+    int count = 0;
+    public void Insert(Integer num) {
+        if(count %2 == 0)
+        {
+            maxheap.offer(num);
+            int max = maxheap.poll();
+            minheap.offer(max);
+
+        }
+        else
+        {
+            minheap.offer(num);
+            int min = minheap.poll();
+            maxheap.offer(min);
+
+        }
+        count ++;
+
+    }
+
+    public Double GetMedian() {
+        if(count %2 ==0)
+        { 
+            return  new Double((maxheap.peek() +minheap.peek()))/2;
+        }else 
+        {
+            return new Double(minheap.peek());
+        }
+    }
+
+
+}
