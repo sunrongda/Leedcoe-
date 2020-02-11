@@ -1,15 +1,35 @@
 public class Solution {
     public int StrToInt(String str) {
-        int  res = 0;
-        if(str.length() == 0 || str == null) return 0;
-        int flag = 1;
-
-        if(str.charAt(0) == '-') flag = -1;
-        for(int i = (str.charAt(0) == '-' ||str.charAt(0) == '+')? 1 :0  ;i < str.length() ; i++)
+        if(str == null || str.length() == 0)
         {
-            if(str.charAt(i) >'9' || str.charAt(i) < '0') return  0;
-            res = res*10 + str.charAt(i)-'0';
+            return 0;
         }
-        return res*flag;
+        int flag = 1;
+        if(str.charAt(0) == '-')
+        {
+            flag = -1;
+        }
+        long res = 0;
+        for(int i = (str.charAt(0) == '-' || str.charAt(0) == '+')? 1:0 ; i<str.length() ; i++)
+        {
+            if(str.charAt(i) > '9' || str.charAt(i) < '0')
+            {
+                return 0;
+            }
+            res = str.charAt(i) - '0' + res*10;
+        }
+        if(res*flag < Integer.MIN_VALUE || res*flag > Integer.MAX_VALUE)
+        {
+            return 0;
+        }
+        return (int)res*flag;
+    }
+    //-2147483649
+    public static void main(String [] args)
+    {
+        Solution test = new Solution();
+        String str = new String("2147483648");
+        System.out.println(test.StrToInt(str));
+
     }
 }
