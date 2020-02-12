@@ -1,0 +1,38 @@
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Solution {
+    public ListNode FindKthToTail(ListNode head,int k) {
+        if(k <=0 || head == null) return head;
+        ListNode k1 = head;
+        ListNode k2 = head;
+
+        for(int i = 0 ; i< k ; i++)
+        {
+            if(k1 ==null)
+            {
+                return null;
+            }
+            k1 = k1.next;
+        }
+        while (k1 != null )
+        {
+            k1 = k1.next;
+            k2 = k2.next;
+        }
+
+        return k2;
+    }
+    public static void main(String[] args)
+    {
+        Solution test = new Solution();
+        ListNode tt =new ListNode(1);
+        System.out.println(test.FindKthToTail(tt,1));
+    }
+}
