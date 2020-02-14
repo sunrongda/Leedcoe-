@@ -1,0 +1,30 @@
+public class Solution {
+    public String replaceSpace(StringBuffer str) {
+        int sp_num = 0;
+        for(int i = 0 ; i < str.length() ; i++)
+        {
+            if(str.charAt(i) == ' ')
+            {
+                sp_num++;
+            }
+        }
+        int old_point = str.length() - 1;
+        int new_point = str.length() + sp_num*2 -1;
+        str.setLength(str.length() + sp_num*2);
+        while (new_point > old_point && old_point >=0)
+        {
+            if(str.charAt(old_point) == ' ')
+            {
+                str.setCharAt(new_point--,'0');
+                str.setCharAt(new_point--,'2');
+                str.setCharAt(new_point--,'%');
+            }
+            else
+            {
+                str.setCharAt(new_point-- ,str.charAt(old_point));
+            }
+            old_point --;
+        }
+        return str.toString();
+    }
+}
