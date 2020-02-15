@@ -1,0 +1,50 @@
+import java.util.ArrayList;
+public class Solution {
+    public int minNumberInRotateArray(int [] array) {
+        if(array == null || array.length == 0)
+            return 0;
+        if(array.length == 1)
+        {
+            return array[0];
+        }
+        int point1 = 0;
+        int point2 = array.length - 1;
+        while (array[point1] >= array[point2])
+        {
+            int temp = (point1 + point2) / 2;
+
+            if(point1 + 1 == point2)
+            {
+                break;
+            }
+            else if(array[temp] == array[point1] && array[temp] == array[point2] )
+            {
+                MinOrder(array , point1 ,point2);
+
+            }
+            else if(array[temp] >= array[point1])
+            {
+                point1 =temp;
+            }
+            else if(array[temp] <= array[point2])
+            {
+                point2 =temp;
+            }
+        }
+        return array[point2];
+    }
+    private int MinOrder(int []arrays ,int index1 ,int index2)
+    {
+        int res = index1;
+        for(;index1 < index2; index1++)
+        {
+            if(arrays[index1] < res)
+            {
+                res = arrays[index1];
+            }
+        }
+        return res;
+    }
+
+
+}
