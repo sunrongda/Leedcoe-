@@ -1,37 +1,49 @@
 TODO: 明天写两种方法！！！！！
-
-java 实现
-传统公式求解时间复杂度O(n)
 public class Solution {
-    public double Power(double base, int exponent) {
-        double  result=1;
-        for(int i=0;i<Math.abs(exponent);i++){
-            result*=base;
-        }
-        if(exponent<0){
-            result=1/result;
-        }
-        return result;            
-  }
-}
-递归：n为偶数，a^n=a^n/2*a^n/2;n为奇数，a^n=（a^（n-1）/2）*（a^（n-1/2））*a
-时间复杂度O（logn） public class Solution {
-    public double Power(double base, int exponent) {
-        int n=Math.abs(exponent);
-        if(n==0)
+
+    public double Power(double base, int exponent)  {
+        if(equal(base , 0)&& exponent <= 0)
+            throw new RuntimeException();
+        if(exponent == 0)
             return 1;
-        if(n==1)
-            return base;
-        double  result=Power(base,n>>1);
-        result*=result;
-        if((n&1)==1)
-            result*=base;
-        if(exponent<0)
-            result=1/result;
-        return result;            
-  }
-}
- 
+        int absexp = exponent;
+        if(exponent < 0)
+        {
+            absexp = -exponent;
+        }
+        double res = base;
+        while (absexp > 1)
+        {
+            res *= res;
+            if((absexp & 0x1) == 1)
+                 res *= base;
+            absexp = absexp>>1;
+        }
+        System.out.println(absexp);
+        if(exponent < 0)
+            return 1.0/base;
+        return res;
+
+    }
+
+    public boolean equal(double num1 ,double num2) {
+        if((num1 - num2 >= -0.0000001) && (num1 - num2 <= 0.0000001))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+    public static void main(String[] args)
+    {
+        Solution test = new Solution();
+        System.out.println(test.Power(2,-3));
+
+    }
+} 
 结合各位道友的意见，二刷如下
 public class Solution {
     public double Power(double base, int exponent) { 
