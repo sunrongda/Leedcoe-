@@ -1,0 +1,104 @@
+
+public class Solution {
+    //没有考虑到输入的位数是大数的情况
+    public static void printToMaxOfDigits1(int n) {
+        int number = 1;
+        int i = 0;
+        while(i < n) {
+            number *= 10;
+            i++;
+        }
+        for(int j = 0; j < number; j++) {
+            System.out.print(j + " ");
+        }
+    }
+
+    //在字符串上模拟数字的加法
+    public static void printToMaxOfDigits2(int n) {
+        if(n < 0) {
+            return;
+        }
+
+        //申请空间，并初始化
+        char[] number = new char[n];
+        for(int i = 0; i < number.length; i++) {
+            number[i] = '0';
+        }
+        while(!increament(number)) {
+            printCharNumber(number);
+        }
+    }
+
+    public static boolean increament(char[] number) {
+        int nTakeOver = 0;
+        for(int i = number.length-1; i >= 0; i--) {
+            int nSum = (number[i] - '0') + nTakeOver;
+
+            if(i == number.length - 1) {
+                nSum ++;
+            }
+            if(nSum >= 10) {
+                if(i == 0) {
+                    return true;
+                }
+                nTakeOver = 1;
+                nSum -= 10;
+                number[i] = (char)(nSum + '0');
+            }else {
+                number[i] = (char)(nSum + '0');
+                break;
+            }
+        }
+        return false;
+    }
+
+    //采用递归的方法
+    public static void printToMaxOfDigits3(int n) {
+        if(n < 0) {
+            return;
+        }
+
+        char[] number = new char[n];
+        for(int i = 0; i < number.length; i++) {
+            number[i] = '0';
+        }
+        for(int i = 0; i <= 9; i++) {
+            printToMaxOfDigitRecursively(n, number, i, 0);
+        }
+    }
+
+    private static void printToMaxOfDigitRecursively(int n, char[] number, int nNumber, int index) {
+        if(index == number.length - 1) {
+            number[index] = (char)(nNumber + '0');
+            printCharNumber(number);
+            return;
+        }else{
+            number[index] = (char)(nNumber + '0');
+            for(int i = 0; i <= 9; i++) {
+                printToMaxOfDigitRecursively(n, number, i ,index+1);
+            }
+        }
+    }
+
+    public static void printCharNumber(char[] number) {
+        boolean isBeginning0 = true;
+        for(int i = 0; i < number.length; i++) {
+            if(isBeginning0 && number[i] - '0' != 0) {
+                isBeginning0 = false;
+            }
+            if(!isBeginning0) {
+                System.out.print(number[i]);
+            }
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        printToMaxOfDigits1(2);
+        System.out.println("--------------");
+        printToMaxOfDigits2(2);
+        System.out.println("--------------");
+        printToMaxOfDigits3(2);
+    }
+}
+
