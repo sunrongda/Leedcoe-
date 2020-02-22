@@ -1,4 +1,4 @@
-TODO: 明天写两种方法！！！！！
+
 public class Solution {
 
     public double Power(double base, int exponent)  {
